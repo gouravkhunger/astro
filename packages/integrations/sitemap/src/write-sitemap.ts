@@ -71,8 +71,8 @@ export async function writeSitemap(
 
 	const src = Readable.from(sourceData);
 	const indexPath = resolve(destinationDir, `./sitemap-index.xml`);
-	for (const customSitemap of customSitemaps) {
-		SitemapIndexStream.prototype._transform.call(sitemapAndIndexStream, { url: customSitemap }, 'utf8', () => {});
+	for (const url of customSitemaps) {
+		SitemapIndexStream.prototype._transform.call(sitemapAndIndexStream, url, 'utf8', () => {});
 	}
 	return promisify(pipeline)(src, sitemapAndIndexStream, createWriteStream(indexPath));
 }
